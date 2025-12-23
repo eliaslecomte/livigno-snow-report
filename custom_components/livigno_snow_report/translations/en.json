@@ -1,0 +1,49 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Livigno Snow Report",
+        "description": "Set up the Livigno Snow Report integration to monitor snow conditions and ski piste status in Livigno, Italy."
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to livigno.eu. Please check your internet connection."
+    },
+    "abort": {
+      "already_configured": "Livigno Snow Report is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "snow_altitude": {
+        "name": "Snow in altitude"
+      },
+      "snow_village": {
+        "name": "Snow in village"
+      },
+      "last_snowfall_date": {
+        "name": "Last snowfall date"
+      },
+      "last_snowfall_amount": {
+        "name": "Last snowfall amount"
+      },
+      "fresh_snow": {
+        "name": "Fresh snow"
+      },
+      "cross_country_skiing": {
+        "name": "Cross-country skiing"
+      },
+      "alpine_skiing": {
+        "name": "Alpine skiing"
+      },
+      "winter_trail": {
+        "name": "Winter trail"
+      }
+    },
+    "image": {
+      "panorama_webcam": {
+        "name": "360° Panorama webcam"
+      }
+    }
+  }
+}
