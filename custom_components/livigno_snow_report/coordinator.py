@@ -43,6 +43,7 @@ class LivignoSnowData:
     cross_country_skiing: float | None = None
     alpine_skiing: float | None = None
     winter_trail: float | None = None
+    webcam_panorama_url: str | None = None
 
 
 class LivignoSnowCoordinator(DataUpdateCoordinator[LivignoSnowData]):
@@ -107,6 +108,11 @@ class LivignoSnowCoordinator(DataUpdateCoordinator[LivignoSnowData]):
                 data.alpine_skiing = self._parse_km_value(value)
             elif "winter trail" in label:
                 data.winter_trail = self._parse_km_value(value)
+
+        # Extract webcam panorama URL
+        webcam_img = soup.find("img", src=lambda x: x and "webcam.livigno.eu" in x and "pano" in x)
+        if webcam_img:
+            data.webcam_panorama_url = webcam_img.get("src")
 
         _LOGGER.debug("Parsed Livigno snow data: %s", data)
         return data

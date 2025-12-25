@@ -7,11 +7,9 @@ DOMAIN: Final = "livigno_snow_report"
 
 # URLs
 SNOW_DATA_URL: Final = "https://www.livigno.eu/en/snow-data"
-WEBCAM_PANORAMA_URL: Final = "https://webcam.livigno.eu/livigno-pano/1300.jpg"
 
 # Update interval
 UPDATE_INTERVAL: Final = timedelta(minutes=30)
-WEBCAM_UPDATE_INTERVAL: Final = timedelta(minutes=5)
 
 # Attribution
 ATTRIBUTION: Final = "Data provided by livigno.eu"
