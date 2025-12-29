@@ -11,7 +11,7 @@ from homeassistant.config_entries import (
     ConfigEntry,
     ConfigFlow,
     ConfigFlowResult,
-    OptionsFlow,
+    OptionsFlowWithConfigEntry,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.selector import (
@@ -97,7 +97,7 @@ class LivignoSnowConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
 
-class LivignoSnowOptionsFlow(OptionsFlow):
+class LivignoSnowOptionsFlow(OptionsFlowWithConfigEntry):
     """Handle options flow for Livigno Snow Report."""
 
     async def async_step_init(
