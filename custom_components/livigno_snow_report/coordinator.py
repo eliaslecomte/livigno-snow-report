@@ -15,17 +15,9 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
+    DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
-    SENSOR_ALPINE_SKIING,
-    SENSOR_CROSS_COUNTRY,
-    SENSOR_FRESH_SNOW,
-    SENSOR_LAST_SNOWFALL_AMOUNT,
-    SENSOR_LAST_SNOWFALL_DATE,
-    SENSOR_SNOW_ALTITUDE,
-    SENSOR_SNOW_VILLAGE,
-    SENSOR_WINTER_TRAIL,
     SNOW_DATA_URL,
-    UPDATE_INTERVAL,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -49,13 +41,14 @@ class LivignoSnowData:
 class LivignoSnowCoordinator(DataUpdateCoordinator[LivignoSnowData]):
     """Coordinator to fetch Livigno snow data."""
 
-    def __init__(self, hass: HomeAssistant) -> None:
+    def __init__(self, hass: HomeAssistant, update_interval_minutes: int = DEFAULT_UPDATE_INTERVAL) -> None:
         """Initialize the coordinator."""
+        from datetime import timedelta
         super().__init__(
             hass,
             _LOGGER,
             name=DOMAIN,
-            update_interval=UPDATE_INTERVAL,
+            update_interval=timedelta(minutes=update_interval_minutes),
         )
         self._session: aiohttp.ClientSession | None = None
 

@@ -3,7 +3,10 @@
     "step": {
       "user": {
         "title": "Livigno Snow Report",
-        "description": "Set up the Livigno Snow Report integration to monitor snow conditions and ski piste status in Livigno, Italy."
+        "description": "Set up the Livigno Snow Report integration to monitor snow conditions and ski piste status in Livigno, Italy.",
+        "data": {
+          "update_interval": "Update interval"
+        }
       }
     },
     "error": {
@@ -11,6 +14,16 @@
     },
     "abort": {
       "already_configured": "Livigno Snow Report is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Livigno Snow Report Options",
+        "data": {
+          "update_interval": "Update interval"
+        }
+      }
     }
   },
   "entity": {

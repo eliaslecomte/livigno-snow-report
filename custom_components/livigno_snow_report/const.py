@@ -8,8 +8,19 @@ DOMAIN: Final = "livigno_snow_report"
 # URLs
 SNOW_DATA_URL: Final = "https://www.livigno.eu/en/snow-data"
 
-# Update interval
-UPDATE_INTERVAL: Final = timedelta(minutes=30)
+# Configuration keys
+CONF_UPDATE_INTERVAL: Final = "update_interval"
+
+# Update interval options (in minutes)
+UPDATE_INTERVAL_OPTIONS: Final = {
+    60: "Every hour",
+    120: "Every 2 hours",
+    180: "Every 3 hours",
+    360: "Every 6 hours",
+    720: "Every 12 hours",
+    1440: "Once a day",
+}
+DEFAULT_UPDATE_INTERVAL: Final = 120  # 2 hours
 
 # Attribution
 ATTRIBUTION: Final = "Data provided by livigno.eu"
