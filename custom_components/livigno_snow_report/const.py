@@ -7,6 +7,7 @@ DOMAIN: Final = "livigno_snow_report"
 
 # URLs
 SNOW_DATA_URL: Final = "https://www.livigno.eu/en/snow-data"
+PANOMAX_WEBCAM_URL: Final = "https://live-image.panomax.com/cams/1628/recent_reduced.jpg"
 
 # Configuration keys
 CONF_UPDATE_INTERVAL: Final = "update_interval"
