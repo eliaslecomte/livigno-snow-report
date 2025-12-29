@@ -14,6 +14,11 @@ from homeassistant.config_entries import (
     OptionsFlow,
 )
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.selector import (
+    SelectSelector,
+    SelectSelectorConfig,
+    SelectSelectorMode,
+)
 
 from .const import (
     CONF_UPDATE_INTERVAL,
@@ -61,10 +66,12 @@ class LivignoSnowConfigFlow(ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             # Validate connection
             if await validate_connection(self.hass):
+                # Convert string value back to int
+                interval = int(user_input.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL))
                 return self.async_create_entry(
                     title="Livigno Snow Report",
                     data={},
-                    options={CONF_UPDATE_INTERVAL: user_input.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL)},
+                    options={CONF_UPDATE_INTERVAL: interval},
                 )
             errors["base"] = "cannot_connect"
 
@@ -72,10 +79,18 @@ class LivignoSnowConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Optional(
+                    vol.Required(
                         CONF_UPDATE_INTERVAL,
                         default=DEFAULT_UPDATE_INTERVAL,
-                    ): vol.In(UPDATE_INTERVAL_OPTIONS),
+                    ): SelectSelector(
+                        SelectSelectorConfig(
+                            options=[
+                                {"value": str(k), "label": v}
+                                for k, v in UPDATE_INTERVAL_OPTIONS.items()
+                            ],
+                            mode=SelectSelectorMode.DROPDOWN,
+                        )
+                    ),
                 }
             ),
             errors=errors,
@@ -90,7 +105,9 @@ class LivignoSnowOptionsFlow(OptionsFlow):
     ) -> ConfigFlowResult:
         """Manage the options."""
         if user_input is not None:
-            return self.async_create_entry(title="", data=user_input)
+            # Convert string value back to int
+            interval = int(user_input.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL))
+            return self.async_create_entry(title="", data={CONF_UPDATE_INTERVAL: interval})
 
         current_interval = self.config_entry.options.get(
             CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
@@ -102,8 +119,16 @@ class LivignoSnowOptionsFlow(OptionsFlow):
                 {
                     vol.Required(
                         CONF_UPDATE_INTERVAL,
-                        default=current_interval,
-                    ): vol.In(UPDATE_INTERVAL_OPTIONS),
+                        default=str(current_interval),
+                    ): SelectSelector(
+                        SelectSelectorConfig(
+                            options=[
+                                {"value": str(k), "label": v}
+                                for k, v in UPDATE_INTERVAL_OPTIONS.items()
+                            ],
+                            mode=SelectSelectorMode.DROPDOWN,
+                        )
+                    ),
                 }
             ),
         )
